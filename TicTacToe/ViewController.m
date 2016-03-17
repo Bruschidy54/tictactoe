@@ -39,26 +39,50 @@
 - (IBAction)onButtonTapped:(UIButton *)sender {
     [sender setTitle:self.whichPlayer.text forState:UIControlStateNormal];
     if ([self.whichPlayer.text isEqual: @"X"]) {
-        self.whichPlayer.text = @"O";
         [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [self.whichPlayer setTextColor:[UIColor redColor]];
         [self.playerOneSquares addObject:[NSString stringWithFormat: @"%ld", (long)sender.tag]];
-        NSLog(@"%@", self.playerOneSquares);
+        [self whoWon:self.playerOneSquares];
+        
+        // Alert code
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat: @“Player %@ Wins!”, [self whoWon]
+                                                                                                            message: Good job! :simple_smile: preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *newGame = [UIAlertAction actionWithTitle:@“New Game" style:UIAlertActionStyleCancel handler:nil];
+                                  [alertController addAction:newGame];
+                                  [self presentViewController:alertController animated:YES completion:nil];
+                                                                                                                     
+        self.whichPlayer.text = @"O";
     } else {
-        self.whichPlayer.text = @"X";
+      
         [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [self.whichPlayer setTextColor:[UIColor blueColor]];
         [self.playerTwoSquares addObject:[NSString stringWithFormat: @"%ld", (long)sender.tag]];
-        NSLog(@"%@", self.playerTwoSquares);
+        [self whoWon:self.playerTwoSquares];
+        self.whichPlayer.text = @"X";
     }
+  
 }
 
-- (NSString *)whoWon {
+- (NSString *)whoWon: (NSMutableSet *)set {
     
-    if ([self.playerOneSquares isEqualToSet:[NSMutableSet setWithObjects:(@"101", @"102", @"103"), nil]]) {
-        NSLog(@"winner!");
-    }
-    return @"a";
+    if ([[NSMutableSet setWithObjects:@"101", @"102", @"103", nil] isSubsetOfSet:set]) {
+        return self.whichPlayer.text;
+    } else if ([[NSMutableSet setWithObjects:@"104", @"105", @"106", nil] isSubsetOfSet:set]) {
+        return self.whichPlayer.text;
+    } else if ([[NSMutableSet setWithObjects:@"107", @"108", @"109", nil] isSubsetOfSet:set]) {
+        return self.whichPlayer.text;
+    } else if ([[NSMutableSet setWithObjects:@"101", @"104", @"107", nil] isSubsetOfSet:set]) {
+        return self.whichPlayer.text;
+    } else if ([[NSMutableSet setWithObjects:@"102", @"105", @"108", nil] isSubsetOfSet:set]) {
+        return self.whichPlayer.text;
+    } else if ([[NSMutableSet setWithObjects:@"103", @"106", @"109", nil] isSubsetOfSet:set]) {
+        return self.whichPlayer.text;
+    } else if ([[NSMutableSet setWithObjects:@"101", @"105", @"109", nil] isSubsetOfSet:set]) {
+        return self.whichPlayer.text;
+    } else if ([[NSMutableSet setWithObjects:@"103", @"105", @"107", nil] isSubsetOfSet:set]) {
+        return self.whichPlayer.text;
+}
+    return @"";
 }
 
 @end
