@@ -28,8 +28,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.playerOneSquares = [[NSMutableSet alloc]init];
+    self.playerTwoSquares = [[NSMutableSet alloc]init];
     self.whichPlayer.text = @"X";
     [self.whichPlayer setTextColor:[UIColor blueColor]];
+    
 
 }
 
@@ -39,21 +42,20 @@
         self.whichPlayer.text = @"O";
         [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [self.whichPlayer setTextColor:[UIColor redColor]];
-        [self.playerOneSquares addObject:(UIButton *)sender];
-        NSLog(@"%@", sender.titleLabel.text);
+        [self.playerOneSquares addObject:[NSString stringWithFormat: @"%ld", (long)sender.tag]];
+        NSLog(@"%@", self.playerOneSquares);
     } else {
         self.whichPlayer.text = @"X";
         [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [self.whichPlayer setTextColor:[UIColor blueColor]];
-        [self.playerTwoSquares addObject:(UIButton *)sender];
+        [self.playerTwoSquares addObject:[NSString stringWithFormat: @"%ld", (long)sender.tag]];
+        NSLog(@"%@", self.playerTwoSquares);
     }
 }
 
 - (NSString *)whoWon {
-    NSMutableSet *playerOneSquares = [[NSMutableSet alloc] init];
-    NSMutableSet *playerTwoSquares = [[NSMutableSet alloc] init];
     
-    if (playerOneSquares == [NSSet setWithObject:(self.button1, self.button2, self.button3)]) {
+    if ([self.playerOneSquares isEqualToSet:[NSMutableSet setWithObjects:(@"101", @"102", @"103"), nil]]) {
         NSLog(@"winner!");
     }
     return @"a";
