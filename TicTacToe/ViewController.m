@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *button8;
 @property (weak, nonatomic) IBOutlet UIButton *button9;
 @property (weak, nonatomic) IBOutlet UILabel *whichPlayer;
+@property NSMutableSet *playerOneSquares;
+@property NSMutableSet *playerTwoSquares;
 
 @end
 
@@ -37,21 +39,24 @@
         self.whichPlayer.text = @"O";
         [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [self.whichPlayer setTextColor:[UIColor redColor]];
+        [self.playerOneSquares addObject:(UIButton *)sender];
+        NSLog(@"%@", sender.titleLabel.text);
     } else {
         self.whichPlayer.text = @"X";
         [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [self.whichPlayer setTextColor:[UIColor blueColor]];
+        [self.playerTwoSquares addObject:(UIButton *)sender];
     }
 }
 
--(NSString *)whoWon {
+- (NSString *)whoWon {
     NSMutableSet *playerOneSquares = [[NSMutableSet alloc] init];
     NSMutableSet *playerTwoSquares = [[NSMutableSet alloc] init];
     
-    if ([playerOneSquares containsObject:(self.button1.titleLabel && self.button2.titleLabel && self.button3.titleLabel)]) {
+    if (playerOneSquares == [NSSet setWithObject:(self.button1, self.button2, self.button3)]) {
         NSLog(@"winner!");
     }
-    
+    return @"a";
 }
 
 @end
