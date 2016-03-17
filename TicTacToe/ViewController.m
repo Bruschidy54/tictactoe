@@ -40,25 +40,40 @@
     [sender setTitle:self.whichPlayer.text forState:UIControlStateNormal];
     if ([self.whichPlayer.text isEqual: @"X"]) {
         [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [self.whichPlayer setTextColor:[UIColor redColor]];
-        [self.playerOneSquares addObject:[NSString stringWithFormat: @"%ld", (long)sender.tag]];
-        [self whoWon:self.playerOneSquares];
         
-        // Alert code
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat: @“Player %@ Wins!”, [self whoWon]
-                                                                                                            message: Good job! :simple_smile: preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *newGame = [UIAlertAction actionWithTitle:@“New Game" style:UIAlertActionStyleCancel handler:nil];
-                                  [alertController addAction:newGame];
-                                  [self presentViewController:alertController animated:YES completion:nil];
-                                                                                                                     
-        self.whichPlayer.text = @"O";
+        [self.playerOneSquares addObject:[NSString stringWithFormat: @"%ld", (long)sender.tag]];
+        if ([[self whoWon:self.playerOneSquares] length] == 0) {
+            [self.whichPlayer setTextColor:[UIColor redColor]];
+            self.whichPlayer.text = @"O";
+        }else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Congratuations!"
+                                                                       message:[NSString stringWithFormat:@"Player %@ wins!", [self whoWon:self.playerOneSquares]]
+                                                                preferredStyle:UIAlertControllerStyleActionSheet]; // 1
+        UIAlertAction *playAgain = [UIAlertAction actionWithTitle:@"Play Again?"
+                                                         style:UIAlertActionStyleDefault handler:nil];
+        
+        [alert addAction:playAgain];
+        [self presentViewController:alert animated:YES completion:nil];
+        }
     } else {
       
         [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [self.whichPlayer setTextColor:[UIColor blueColor]];
+        
         [self.playerTwoSquares addObject:[NSString stringWithFormat: @"%ld", (long)sender.tag]];
-        [self whoWon:self.playerTwoSquares];
-        self.whichPlayer.text = @"X";
+        if ([[self whoWon:self.playerTwoSquares] length] == 0) {
+            [self.whichPlayer setTextColor:[UIColor blueColor]];
+            self.whichPlayer.text = @"X";
+        }else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Congratuations!"
+                                                                           message:[NSString stringWithFormat:@"Player %@ wins!", [self whoWon:self.playerTwoSquares]]
+                                                                    preferredStyle:UIAlertControllerStyleActionSheet]; // 1
+            UIAlertAction *playAgain = [UIAlertAction actionWithTitle:@"Play Again?"
+                                                                style:UIAlertActionStyleDefault handler:nil];
+            
+            [alert addAction:playAgain];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+
     }
   
 }
