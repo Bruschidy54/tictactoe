@@ -9,6 +9,16 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *button1;
+@property (weak, nonatomic) IBOutlet UIButton *button2;
+@property (weak, nonatomic) IBOutlet UIButton *button3;
+@property (weak, nonatomic) IBOutlet UIButton *button4;
+@property (weak, nonatomic) IBOutlet UIButton *button5;
+@property (weak, nonatomic) IBOutlet UIButton *button6;
+@property (weak, nonatomic) IBOutlet UIButton *button7;
+@property (weak, nonatomic) IBOutlet UIButton *button8;
+@property (weak, nonatomic) IBOutlet UIButton *button9;
+@property (weak, nonatomic) IBOutlet UILabel *whichPlayer;
 
 @end
 
@@ -16,10 +26,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+    self.whichPlayer.text = @"X";
+    [self.whichPlayer setTextColor:[UIColor blueColor]];
+
 }
 
-
+- (IBAction)onButtonTapped:(UIButton *)sender {
+    [sender setTitle:self.whichPlayer.text forState:UIControlStateNormal];
+    if ([self.whichPlayer.text isEqual: @"X"]) {
+        self.whichPlayer.text = @"O";
+        [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [self.whichplayer.textColor]
+    } else {
+        self.whichPlayer.text = @"X";
+        [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    }
+}
 
 @end
