@@ -36,11 +36,22 @@
     if ([self.whichPlayer.text isEqual: @"X"]) {
         self.whichPlayer.text = @"O";
         [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [self.whichplayer.textColor]
+        [self.whichPlayer setTextColor:[UIColor redColor]];
     } else {
         self.whichPlayer.text = @"X";
         [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.whichPlayer setTextColor:[UIColor blueColor]];
     }
+}
+
+-(NSString *)whoWon {
+    NSMutableSet *playerOneSquares = [[NSMutableSet alloc] init];
+    NSMutableSet *playerTwoSquares = [[NSMutableSet alloc] init];
+    
+    if ([playerOneSquares containsObject:(self.button1.titleLabel && self.button2.titleLabel && self.button3.titleLabel)]) {
+        NSLog(@"winner!");
+    }
+    
 }
 
 @end
