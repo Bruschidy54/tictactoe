@@ -32,7 +32,10 @@
     self.playerTwoSquares = [[NSMutableSet alloc]init];
     self.whichPlayer.text = @"X";
     [self.whichPlayer setTextColor:[UIColor blueColor]];
-    
+    for (int i = 101; i <= 109; i++) {
+        UIButton *button = (UIButton *)[self.view viewWithTag:i];
+        [button.titleLabel setText:@""];
+    }
 
 }
 
@@ -50,7 +53,10 @@
                                                                        message:[NSString stringWithFormat:@"Player %@ wins!", [self whoWon:self.playerOneSquares]]
                                                                 preferredStyle:UIAlertControllerStyleActionSheet]; // 1
         UIAlertAction *playAgain = [UIAlertAction actionWithTitle:@"Play Again?"
-                                                         style:UIAlertActionStyleDefault handler:nil];
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              [self viewDidLoad];
+                                                          }];
         
         [alert addAction:playAgain];
         [self presentViewController:alert animated:YES completion:nil];
